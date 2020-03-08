@@ -1,3 +1,4 @@
+import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
 import play.sbt.PlayScala
 import sbt.{file, project}
 import sbt.Keys.{libraryDependencies, name, organization, scalaVersion, version}
@@ -14,9 +15,11 @@ object ApiBuild {
     SharedDependencies.akkaRemote
   ) ++
     SharedDependencies.akkaHttp ++
-    SharedDependencies.circeLibraries
+    SharedDependencies.circeLibraries ++
+    SharedDependencies.akkaTesting ++
+    SharedDependencies.test
 
   lazy val api: Project =
     (project in file("api"))
-      .settings(libraryDependencies ++= ApiBuild.dependencies)
+      .settings(libraryDependencies ++= ApiBuild.dependencies, scalafmtOnCompile := true)
 }

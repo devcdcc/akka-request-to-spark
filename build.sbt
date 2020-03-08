@@ -13,16 +13,17 @@ javaOptions ++= Seq(
   "-XX:MaxPermSize=2048M",
   "-XX:+CMSClassUnloadingEnabled"
 )
-scalafmtOnCompile := true
+
 lazy val utils = {
   (project in file("utils"))
-    .settings(libraryDependencies ++= UtilsBuild.dependencies)
+    .settings(libraryDependencies ++= UtilsBuild.dependencies,scalafmtOnCompile := true)
 }
 lazy val `data-resolver-build` = {
   (project in file("data-resolver-build"))
     .settings(
       libraryDependencies ++= DataResolverBuild.dependencies,
-      mainClass in assembly := Some("io.github.devcdcc.Main")
+      mainClass in assembly := Some("io.github.devcdcc.Main"),
+      scalafmtOnCompile := true
     )
     .dependsOn(utils)
     .aggregate(utils)

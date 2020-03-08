@@ -29,11 +29,14 @@ object SharedDependencies {
   val akkaRemote: ModuleID = "com.typesafe.akka" %% "akka-remote" % akkaVersion
   val akkaTesting = Seq(
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
-    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test
+    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
+    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion,
+    "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11"
   )
   val akkaHttp: Seq[ModuleID] = Seq(
     "com.typesafe.akka" %% "akka-http" % "10.1.11",
-    "com.typesafe.akka" %% "akka-stream" % akkaVersion
+    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+    "de.heikoseeberger" %% "akka-http-circe" % "1.31.0"
   )
   private val circeVersion = "0.12.0"
   lazy val circeLibraries: Seq[ModuleID] =

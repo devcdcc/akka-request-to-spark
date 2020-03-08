@@ -10,6 +10,7 @@ import scala.util.{Failure, Success, Try}
 
 package object circe {
 
+  //scalastyle: off
   object auto extends AutoDerivation {
 
     import enum._
