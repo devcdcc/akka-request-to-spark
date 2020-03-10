@@ -13,9 +13,8 @@ class NavigationController(val session: SparkSession, config: Config)
 
   def searchByDate(start: Long, end: Long): Array[domain.Navigation] =
     navigationData
-      .filter(
-        navigation =>
-          navigation.timestamp.value >= start && navigation.timestamp.value <= end
+      .filter(navigation =>
+        navigation.timestamp.value >= start && navigation.timestamp.value <= end
       )
       .collect()
 
@@ -26,13 +25,12 @@ class NavigationController(val session: SparkSession, config: Config)
 
   def getSpanishDeviceIds: Array[Long] =
     navigationData
-      .filter(
-        navigation =>
-          !languageData
-            .filter(_.country == navigation.country)
-            .map(language => language.language)
-            .filter(lang => lang == languageTarget)
-            .isEmpty
+      .filter(navigation =>
+        !languageData
+          .filter(_.country == navigation.country)
+          .map(language => language.language)
+          .filter(lang => lang == languageTarget)
+          .isEmpty
       )
       .map(_.device_id.value)
       .distinct()

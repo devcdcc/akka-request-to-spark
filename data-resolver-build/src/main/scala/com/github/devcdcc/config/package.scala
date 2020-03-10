@@ -14,10 +14,10 @@ package object config {
   class JobConfig(args: Array[String]) {
     private def kindRequest: RequestType = RequestType(args(0).toInt)
     def getParameter: AbstractParameter = kindRequest match {
-      case RangeRequest                => RangeParameter(args(1).toLong, args(2).toLong)
-      case GetByDeviceIdRequest        => GetByDeviceIdParameter(args(1).toLong)
+      case RangeRequest => RangeParameter(args(1).toLong, args(2).toLong)
+      case GetByDeviceIdRequest => GetByDeviceIdParameter(args(1).toLong)
       case DeviceIdsRByLanguageRequest => DeviceIdsEmptyParameters()
-      case _                           => throw new Exception("Wrong kind of request")
+      case _ => throw new Exception("Wrong kind of request")
     }
 
   }

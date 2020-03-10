@@ -8,8 +8,10 @@ import io.circe.Json
 import com.github.devcdcc.domain._
 import io.circe.syntax._
 
-class RequestSelector(navigationController: NavigationController,
-                      paramConfig: config.JobConfig) {
+class RequestSelector(
+    navigationController: NavigationController,
+    paramConfig: config.JobConfig
+) {
   def selection: Json = {
 
     val json = paramConfig.getParameter match {

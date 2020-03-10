@@ -1,9 +1,7 @@
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
-import play.sbt.PlayScala
 import sbt.{file, project}
 import sbt.Keys.{libraryDependencies, name, organization, scalaVersion, version}
 import sbt._
-import play.sbt.PlayImport._
 
 import scala.collection.immutable
 object ApiBuild {
@@ -17,9 +15,14 @@ object ApiBuild {
     SharedDependencies.akkaHttp ++
     SharedDependencies.circeLibraries ++
     SharedDependencies.akkaTesting ++
-    SharedDependencies.test
+    SharedDependencies.test :+
+    SharedDependencies.sparkLauncher :+
+    SharedDependencies.testContainers
 
   lazy val api: Project =
     (project in file("api"))
-      .settings(libraryDependencies ++= ApiBuild.dependencies, scalafmtOnCompile := true)
+      .settings(
+        libraryDependencies ++= ApiBuild.dependencies,
+        scalafmtOnCompile := true
+      )
 }

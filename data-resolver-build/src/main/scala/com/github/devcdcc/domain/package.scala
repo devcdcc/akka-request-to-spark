@@ -10,10 +10,12 @@ package object domain {
   case class DataCountry(value: String) extends AnyVal
   case class DataLanguage(value: String) extends AnyVal
 
-  case class Navigation(device_id: DataDeviceID,
-                        timestamp: DataTimestamp,
-                        url: DataURL,
-                        country: DataCountry)
+  case class Navigation(
+      device_id: DataDeviceID,
+      timestamp: DataTimestamp,
+      url: DataURL,
+      country: DataCountry
+  )
   implicit val navigationDecoder: Decoder[Navigation] =
     deriveDecoder[Navigation]
   implicit val navigationEncoder: Encoder[Navigation] =

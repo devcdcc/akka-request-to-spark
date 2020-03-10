@@ -16,13 +16,18 @@ javaOptions ++= Seq(
 
 lazy val utils = {
   (project in file("utils"))
-    .settings(libraryDependencies ++= UtilsBuild.dependencies,scalafmtOnCompile := true)
+    .settings(
+//      crossScalaVersions := List("2.12.10", "2.11.12"),
+      libraryDependencies ++= UtilsBuild.dependencies,
+      scalafmtOnCompile := true
+    )
 }
 lazy val `data-resolver-build` = {
   (project in file("data-resolver-build"))
     .settings(
+//      crossScalaVersions := List("2.12.10", "2.11.12"),
       libraryDependencies ++= DataResolverBuild.dependencies,
-      mainClass in assembly := Some("io.github.devcdcc.Main"),
+      mainClass in assembly := Some("io.github.devcdcc.ReaderJobMain"),
       scalafmtOnCompile := true
     )
     .dependsOn(utils)

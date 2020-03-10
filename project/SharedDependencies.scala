@@ -25,12 +25,11 @@ import sbt._
 object SharedDependencies {
 
   lazy val configDependency = "com.typesafe" % "config" % "1.3.3"
-  private val akkaVersion = "2.5.26"
+  private val akkaVersion = "2.6.3"
   val akkaRemote: ModuleID = "com.typesafe.akka" %% "akka-remote" % akkaVersion
   val akkaTesting = Seq(
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
     "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
-    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion,
     "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11"
   )
   val akkaHttp: Seq[ModuleID] = Seq(
@@ -38,7 +37,7 @@ object SharedDependencies {
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
     "de.heikoseeberger" %% "akka-http-circe" % "1.31.0"
   )
-  private val circeVersion = "0.12.0"
+  private val circeVersion = "0.13.0"
   lazy val circeLibraries: Seq[ModuleID] =
     Seq(
       "io.circe" %% "circe-core",
@@ -58,10 +57,13 @@ object SharedDependencies {
     "com.softwaremill.macwire" %% "util" % macWireVersion,
     "com.softwaremill.macwire" %% "proxy" % macWireVersion
   )
-
+  lazy val sparkLauncher = "org.apache.spark" %% "spark-launcher" % "2.4.3"
   lazy val test = Seq(
     "org.scalactic" %% "scalactic" % "3.1.0",
     "org.scalatest" %% "scalatest" % "3.1.0" % Test,
     "org.mockito" %% "mockito-scala-scalatest" % "1.11.2" % Test
   )
+  val testcontainersScalaVersion = "0.36.0"
+  lazy val testContainers = "com.dimafeng" %% "testcontainers-scala-scalatest" % testcontainersScalaVersion % Test
+
 }

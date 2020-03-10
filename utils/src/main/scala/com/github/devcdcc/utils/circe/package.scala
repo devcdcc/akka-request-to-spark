@@ -17,21 +17,21 @@ package object circe {
     import shapeless._
 
     implicit def encoderValueClass[T <: AnyVal, V](
-      implicit g: Lazy[Generic.Aux[T, V :: HNil]],
-      e: Encoder[V]
+        implicit g: Lazy[Generic.Aux[T, V :: HNil]],
+        e: Encoder[V]
     ): Encoder[T] = Encoder.instance { value ⇒
       e(g.value.to(value).head)
     }
 
     implicit def decoderValueClass[T <: AnyVal, V](
-      implicit g: Lazy[Generic.Aux[T, V :: HNil]],
-      d: Decoder[V]
+        implicit g: Lazy[Generic.Aux[T, V :: HNil]],
+        d: Decoder[V]
     ): Decoder[T] = {
       val value = Decoder.instance { cursor ⇒
         {
           val result = d(cursor) match {
             case Right(value) => g.value.from(value :: HNil)
-            case _            => null
+            case _ => null
           }
           Right(result.asInstanceOf[T])
         }
@@ -48,21 +48,20 @@ package object circe {
       (c: HCursor) => {
         val failResult = Left(DecodingFailure("LocalDateTime", c.history))
         c.value.asString
-          .map(
-            value =>
-              Try(LocalDateTime.parse(value)) match {
-                case Success(value) => Right(value)
-                case Failure(_) =>
-                  Try(DateTime.parse(value))
-                    .map(convertJODADateTimeToJavaZonedDateTime)
-                    .fold(_ => failResult, dateTime => Right(dateTime))
+          .map(value =>
+            Try(LocalDateTime.parse(value)) match {
+              case Success(value) => Right(value)
+              case Failure(_) =>
+                Try(DateTime.parse(value))
+                  .map(convertJODADateTimeToJavaZonedDateTime)
+                  .fold(_ => failResult, dateTime => Right(dateTime))
             }
           )
           .getOrElse(failResult)
       }
 
     private def convertJODADateTimeToJavaZonedDateTime(
-      originDateTime: DateTime
+        originDateTime: DateTime
     ): LocalDateTime =
       java.time.ZonedDateTime
         .ofInstant(
@@ -70,7 +69,6 @@ package object circe {
           java.time.ZoneId.of(originDateTime.getZone.getID)
         )
         .toLocalDateTime
-
     implicit lazy val inetAddressEncoder: Encoder[InetAddress] =
       (address: InetAddress) => Json.fromString(address.getHostAddress)
     implicit lazy val inetAddressDecoder: Decoder[InetAddress] = (c: HCursor) =>
@@ -84,16 +82,20 @@ package object circe {
           value
             .map(address => Right(address))
             .getOrElse(Left(DecodingFailure("UUID", c.history)))
-    }
+      }
 
-    implicit def encodeEnum[A, C <: Coproduct](implicit
-                                               gen: LabelledGeneric.Aux[A, C],
-                                               rie: IsEnum[C]): Encoder[A] =
+    implicit def encodeEnum[A, C <: Coproduct](
+        implicit
+        gen: LabelledGeneric.Aux[A, C],
+        rie: IsEnum[C]
+    ): Encoder[A] =
       Encoder[String].contramap[A](a => rie.to(gen.to(a)))
 
-    implicit def decodeEnum[A, C <: Coproduct](implicit
-                                               gen: LabelledGeneric.Aux[A, C],
-                                               rie: IsEnum[C]): Decoder[A] =
+    implicit def decodeEnum[A, C <: Coproduct](
+        implicit
+        gen: LabelledGeneric.Aux[A, C],
+        rie: IsEnum[C]
+    ): Decoder[A] =
       Decoder[String].emap { s =>
         rie.from(s).map(gen.from).toRight("enum")
       }
@@ -121,11 +123,11 @@ package object circe {
       }
 
       implicit def cconsIsEnum[K <: Symbol, H <: Product, T <: Coproduct](
-        implicit
-        witK: Witness.Aux[K],
-        witH: Witness.Aux[H],
-        gen: Generic.Aux[H, HNil],
-        tie: IsEnum[T]
+          implicit
+          witK: Witness.Aux[K],
+          witH: Witness.Aux[H],
+          gen: Generic.Aux[H, HNil],
+          tie: IsEnum[T]
       ): IsEnum[FieldType[K, H] :+: T] = new IsEnum[FieldType[K, H] :+: T] {
 
         def to(c: FieldType[K, H] :+: T): String = c match {
