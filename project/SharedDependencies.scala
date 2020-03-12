@@ -25,7 +25,7 @@ import sbt._
 object SharedDependencies {
 
   lazy val configDependency = "com.typesafe" % "config" % "1.3.3"
-  private val akkaVersion = "2.6.3"
+  private val akkaVersion = "2.5.26"
   val akkaRemote: ModuleID = "com.typesafe.akka" %% "akka-remote" % akkaVersion
   val akkaTesting = Seq(
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
@@ -35,9 +35,9 @@ object SharedDependencies {
   val akkaHttp: Seq[ModuleID] = Seq(
     "com.typesafe.akka" %% "akka-http" % "10.1.11",
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
-    "de.heikoseeberger" %% "akka-http-circe" % "1.31.0"
+    "de.heikoseeberger" %% "akka-http-circe" % "1.27.0"
   )
-  private val circeVersion = "0.13.0"
+  private val circeVersion = "0.11.0"
   lazy val circeLibraries: Seq[ModuleID] =
     Seq(
       "io.circe" %% "circe-core",
@@ -46,10 +46,10 @@ object SharedDependencies {
       "io.circe" %% "circe-parser",
       "io.circe" %% "circe-optics"
     ).map(_ % circeVersion)
-  val jodaVersion = "2.10.5"
+  private val jodaVersion = "2.10.5"
   lazy val jodaLibrary = "joda-time" % "joda-time" % jodaVersion
 
-  val macWireVersion = "2.3.3"
+  private val macWireVersion = "2.3.3"
 
   lazy val macWireDependencies = Seq(
     "com.softwaremill.macwire" %% "macros" % macWireVersion % "provided",
@@ -63,7 +63,9 @@ object SharedDependencies {
     "org.scalatest" %% "scalatest" % "3.1.0" % Test,
     "org.mockito" %% "mockito-scala-scalatest" % "1.11.2" % Test
   )
-  val testcontainersScalaVersion = "0.36.0"
+  lazy val betterFiles = "com.github.pathikrit" %% "better-files" % "3.8.0"
+  private val testcontainersScalaVersion = "0.36.0"
   lazy val testContainers = "com.dimafeng" %% "testcontainers-scala-scalatest" % testcontainersScalaVersion % Test
+  lazy val redis = "net.debasishg" %% "redisclient" % "3.20"
 
 }

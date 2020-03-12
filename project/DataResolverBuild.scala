@@ -14,6 +14,8 @@ object DataResolverBuild {
       SharedDependencies.macWireDependencies :+
       SharedDependencies.configDependency :+
       SharedDependencies.jodaLibrary :+
-      SharedDependencies.akkaRemote
+      SharedDependencies.akkaRemote :+
+//      SharedDependencies.betterFiles :+
+      SharedDependencies.redis
 
 }

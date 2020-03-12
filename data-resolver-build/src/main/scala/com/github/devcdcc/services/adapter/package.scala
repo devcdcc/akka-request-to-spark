@@ -8,17 +8,19 @@ package object adapter {
     def convert(row: Row): T
   }
   object NavigationRowAdapter extends AbstractRowAdapter[Navigation] {
-    override def convert(row: Row): Navigation = Navigation(
-      device_id = DataDeviceID(row.getLong(0)),
-      timestamp = DataTimestamp(row.getLong(1)),
-      url = DataURL(row.getString(2)),
-      country = DataCountry(row.getString(3))
-    )
+    override def convert(row: Row): Navigation = {
+      Navigation(
+        device_id = row.getString(0).toLong,
+        timestamp = row.getString(1).toLong,
+        url = row.getString(2),
+        country = row.getString(3)
+      )
+    }
   }
   object LanguageRowAdapter extends AbstractRowAdapter[Language] {
     override def convert(row: Row): Language = Language(
-      country = DataCountry(row.getString(0)),
-      language = DataLanguage(row.getString(1))
+      country = row.getString(0),
+      language = row.getString(1)
     )
   }
 }

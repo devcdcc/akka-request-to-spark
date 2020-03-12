@@ -2,7 +2,6 @@ package com.github.devcdcc.services.slector
 
 import com.github.devcdcc.config
 import com.github.devcdcc.controller.NavigationController
-import com.github.devcdcc.ReaderJobMain.{navigationController, paramConfig}
 import io.circe.Json
 
 import com.github.devcdcc.domain._

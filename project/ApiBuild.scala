@@ -15,9 +15,11 @@ object ApiBuild {
     SharedDependencies.akkaHttp ++
     SharedDependencies.circeLibraries ++
     SharedDependencies.akkaTesting ++
+    SharedDependencies.macWireDependencies ++
     SharedDependencies.test :+
     SharedDependencies.sparkLauncher :+
-    SharedDependencies.testContainers
+    SharedDependencies.testContainers :+
+    SharedDependencies.redis
 
   lazy val api: Project =
     (project in file("api"))
